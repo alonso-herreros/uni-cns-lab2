@@ -6,8 +6,8 @@ title: Lab 1 Report
 :root {
     --markdown-font-family: "Times New Roman", Times, serif;
     --markdown-font-size: 10.5pt;
-**}
-**</style>
+}
+</style>
 
 <p class="supt1 center">Communication Theory</p>
 
