@@ -98,31 +98,31 @@ Alonso Herreros Copete, Jose Alberto Pastor Llorente
 >
 > #### ARP Request
 >
-
-| **Ethernet Header** | **Specific address** | **Owner host**     |
-| ------------------- | -------------------- | ------------------ |
-| MAC source          | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`      |
-| MAC destination     | `ff:ff:ff:ff:ff:ff`  | `dirMAC_broadcast` |
-
-
-| **ARP fields** | **Specific address** | **Owner host**     |
-| -------------- | -------------------- | ------------------ |
-| MAC source     | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`      |
-| IP sender      | `163.117.171.193`    | `dirIP_miPC`      |
-| MAC target     | `ff:ff:ff:ff:ff:ff`  | `dirMAC_broadcast` |
-| IP target      | `163.117.171.194`    | `dirIP_otherPC`   |
-
-#### ARP Reply
-
-| **Ethernet Header** | **Specific address** | **Owner host**   |
-| ------------------- | -------------------- | ---------------- |
-| MAC source          | `4a:4f:d1:d3:52:6a`  | `dirMAC_otherPC` |
-| MAC destination     | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`    |
-
-
-| **ARP fields** | **Specific address** | **Owner host**   |
-| -------------- | -------------------- | ---------------- |
-| MAC source     | `4a:4f:d1:d3:52:6a`  | `dirMAC_otherPC` |
-| IP sender      | `163.117.171.194`    | `dirIP_otherPC`  |
-| MAC target     | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`    |
-| IP target      | `163.117.171.193`    | `dirIP_miPC`     |
+>
+> | **Ethernet Header** | **Specific address** | **Owner host**     |
+> | ------------------- | -------------------- | ------------------ |
+> | MAC source          | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`      |
+> | MAC destination     | `ff:ff:ff:ff:ff:ff`  | `dirMAC_broadcast` |
+>
+>
+> | **ARP fields** | **Specific address** | **Owner host**     |
+> | -------------- | -------------------- | ------------------ |
+> | MAC source     | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`      |
+> | IP sender      | `163.117.171.193`    | `dirIP_miPC`      |
+> | MAC target     | `ff:ff:ff:ff:ff:ff`  | `dirMAC_broadcast` |
+> | IP target      | `163.117.171.194`    | `dirIP_otherPC`   |
+>
+> #### ARP Reply
+>
+> | **Ethernet Header** | **Specific address** | **Owner host**   |
+> | ------------------- | -------------------- | ---------------- |
+> | MAC source          | `4a:4f:d1:d3:52:6a`  | `dirMAC_otherPC` |
+> | MAC destination     | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`    |
+>
+>
+> | **ARP fields** | **Specific address** | **Owner host**   |
+> | -------------- | -------------------- | ---------------- |
+> | MAC source     | `4a:4f:d1:d3:52:6a`  | `dirMAC_otherPC` |
+> | IP sender      | `163.117.171.194`    | `dirIP_otherPC`  |
+> | MAC target     | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`    |
+> | IP target      | `163.117.171.193`    | `dirIP_miPC`     |
