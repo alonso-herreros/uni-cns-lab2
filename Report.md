@@ -126,3 +126,39 @@ Alonso Herreros Copete, Jose Alberto Pastor Llorente
 > | IP sender      | `163.117.171.194`    | `dirIP_otherPC`  |
 > | MAC target     | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`    |
 > | IP target      | `163.117.171.193`    | `dirIP_miPC`     |
+
+## 3. IP traffic within a subnet
+
+> ⚠️ **Important**
+>
+> This section was done in a different session, and my host was changed from `vit003` to `vit002`. At `eth0`,
+> the MAC address changed to `5e:41:04:09:56:df`, while the IP address changed to `163.117.171.192`.
+>
+> The destination host was still `vit004`, with IP address `163.117.171.194`.
+
+### b. ICMP types
+
+> The ICMP messages exchanged during the ping request and response had types 8 and 0, respectively. These
+> correspond to the "Echo Request" and "Echo Reply" messages.
+
+### c. Ping datagram
+
+> Screenshot is shown below.
+>
+> ![Screenshot with the ICMP traffic captured with Wireshark](img/screenshot-wireshark_icmp1.png)
+>
+> | **MAC Header**  | **Specific address** | **Owner host**   |
+> | --------------- | -------------------- | ---------------- |
+> | MAC source      | `5e:41:04:09:56:df`  | `dirMAC_miPC`    |
+> | MAC destination | `4a:4f:d1:d3:52:6a`  | `dirMAC_otherPC` |
+>
+>
+> | **IP Header**  | **Information**   | **Owner host**  |
+> | -------------- | ----------------- | --------------- |
+> | IP source      | `163.117.171.192` | `dirIP_miPC`    |
+> | IP Destination | `163.117.171.194` | `dirIP_otherPC` |
+> | Protocol       | ICMP (01)         |
+> | TTL            | 64                |
+
+## 4. IP traffic between subnets
+
