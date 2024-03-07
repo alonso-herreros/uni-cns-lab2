@@ -98,7 +98,6 @@ Alonso Herreros Copete, Jose Alberto Pastor Llorente
 >
 > #### ARP Request
 >
->
 > | **Ethernet Header** | **Specific address** | **Owner host**     |
 > | ------------------- | -------------------- | ------------------ |
 > | MAC source          | `86:c6:5b:e6:06:2d`  | `dirMAC_miPC`      |
@@ -162,3 +161,77 @@ Alonso Herreros Copete, Jose Alberto Pastor Llorente
 
 ## 4. IP traffic between subnets
 
+> ⚠️ **Important**
+>
+> This section was done in a different session, and my host was changed to `vit037`. At `eth0`,
+> the MAC address changed to `d2:87:f4:22:46:a2`, while the IP address changed to `163.117.172.191`.
+
+### a. Identifying subnets
+
+> The ping command reported the IP address of `contrabajo.it.uc3m.es` as `163.117.139.115`. Since our subnet
+> is `163.117.171.0/24`, we can assert that `contrabajo` **is in a different subnet**, since its first 24 bits
+> are different from ours (`163.117.171` vs `163.117.139`).
+
+### b. IPv4 forwarding table
+
+> The IPv4 forwarding table was checked with the `route -v -n` command, where the `-v` option was included to
+> ensure the display of all relevant information, and the `n` option was used to replace aliases such as
+> `default` or `_gateway` by their actual IPv4 addresses. The screenshot is shown below.
+>
+> ![Screenshot with the result of: route -v -n](img/screenshot-route_v_n.png)
+>
+> The summary table is shown below. Hops marked as `-` mean that the packet is not forwarded, but rather sent
+> to the end host, since it is in the same link as the source.
+>
+> | **Prefix**         | **Output Interface** | **Next hop**    |
+> | ------------------ | -------------------- | --------------- |
+> | `0.0.0.0/0`        | `eth0`               | `163.117.172.2` |
+> | `163.117.172.0/24` | `eth0`               | `-`             |
+> | `192.168.122.0`    | `virbr0`             | `-`             |
+
+### c. Default router
+
+> The default router appears to be at `163.117.172.2`. Its MAC address was resolved with the `arp` command,
+> and it was found to be `00:1b:17:00:21:24`.
+
+### d. Wireshark capture
+
+> The ICMP traffic was captured with Wireshark, using the display filter `icmp`. The screenshot is shown
+> below.
+>
+> ![Screenshot with the ICMP traffic captured with Wireshark](img/screenshot-wireshark_icmp_contrabajo.png)
+>
+> | **MAC Header**  | **Specific address** | **Owner host**   |
+> | --------------- | -------------------- | ---------------- |
+> | MAC source      | `d2:87:f4:22:46:a2`  | `dirMAC_miPC`    |
+> | MAC destination | `00:1b:17:00:21:24`  | `dirMAC_router`  |
+>
+>
+> | **IP Header**  | **Information**   | **Owner host**  |
+> | -------------- | ----------------- | --------------- |
+> | IP source      | `163.117.172.191` | `dirIP_miPC`    |
+> | IP Destination | `163.117.139.115` | `dirIP_otherPC` |
+> | Protocol       | ICMP (01)         |                 |
+> | TTL            | 64                |                 |
+
+### e. Address resolution
+
+#### 1. Cross-subnet ping
+
+> When sending a ping to a host outside of the sender's subnet, ARP is used to figure out the **MAC address of
+> the gateway**, using the **gateway's IP address found in the routing table** (in this case,
+> `163.117.172.2`). Only then, the router will check the IP header and forward it accordingly.
+
+#### 2. Same-subnet ping
+
+> When sending a ping to a host within the sender's subnet, ARP is used to figure out the **MAC address of the
+> destination host**, using the **destination IP address**. Then, the packet is sent directly to the
+> destination host.
+
+### f. Decision process
+
+> The source host checks the destination IP address against its forwarding table. If it finds a match, it
+> sends the packet through the corresponding interface. If the gateway field is empty, this means the packet
+> can be sent directly to the destination host, and the source does so. Otherwise, the source sends the packet
+> To the gateway, with the destination IP address in the IP header and the gateway MAC address in the Ethernet
+> (or other link-level protocol) header.
