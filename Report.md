@@ -47,7 +47,7 @@ Alonso Herreros Copete, Jose Alberto Pastor Llorente
 > The network prefix for the lab network is `163.117.171.0/24`. Therefore, the network address is
 > `163.117.171.0` and the broadcast address is `163.117.171.255`.
 >
-> There can be up to 254 hosts assigned to this subnet: there are $2^(32-24)=256$ addresses in total, but 2
+> There can be up to 254 hosts assigned to this subnet: there are $2^{32-24}=256$ addresses in total, but 2
 > of them are reserved for the network and broadcast addresses, leaving us with 254 addresses for hosts.
 
 ## 2. ARP protocol
